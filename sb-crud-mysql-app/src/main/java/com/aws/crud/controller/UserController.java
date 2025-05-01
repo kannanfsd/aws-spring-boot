@@ -2,6 +2,7 @@ package com.aws.crud.controller;
 
 import com.aws.crud.entity.User;
 import com.aws.crud.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+    @Autowired
     private UserRepository userRepository;
     @GetMapping
     public List<User> getAllUsers() {
@@ -26,7 +28,7 @@ public class UserController {
     }
     @PutMapping("/{id}")
     public User updateUser(@RequestBody User user, @PathVariable long id) {
-        User existingUser = getUserById(user.getId());
+        User existingUser = getUserById(id);
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
         existingUser.setEmail(user.getEmail());
